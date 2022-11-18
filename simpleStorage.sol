@@ -1,3 +1,4 @@
+//SPDX-License-Identifier: MIT
 pragma solidity >=0.6.0 <0.9.0;
 
 contract SimpleStorage{
@@ -9,6 +10,8 @@ contract SimpleStorage{
     }
 
     People[] public people;
+
+    mapping(string => uint256) public mapNameToNumber;
 
     People public person = People({favoriteNumber:69,name:"khaled"});
 
@@ -24,7 +27,8 @@ contract SimpleStorage{
 
     //memory: only saved during execution or function call
     //storage: will be saved after execution
-    function addPerson() public (string memory _name,uint256 _favoriteNumber) {
-        push.people(People(name: _name , favoriteNumber: _favoriteNumber));
+    function addPerson (string memory _name,uint256 _favoriteNumber) public {
+        people.push(People(_name,_favoriteNumber));
+        mapNameToNumber[_name]= _favoriteNumber;
     }
 }
